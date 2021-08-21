@@ -27,95 +27,97 @@ import org.json.JSONObject;
 
 public class Constant {
 
-    // staging = https://appadmin.loanchacha.com
-    // live =  https://appadmin.loanchacha.com/
+    // staging = http://check.loanchacha.com
+    // live =  http://check.loanchacha.com/
 	// API URL configuration
-	static String AdminPageURL = "https://appadmin.loanchacha.com";
-	static String CategoryAPI = "https://appadmin.loanchacha.com/api/get-all-category-data";
-	static String MenuAPI = "https://appadmin.loanchacha.com/api/get-product-data-by-category-id";
-    static String NoticesAPI = "https://appadmin.loanchacha.com/api/get-notices-data-by-category-id";
-    static String SchedulesAPI = "https://appadmin.loanchacha.com/api/get-schedules-data-by-category-id";
-    static String SearchAPI = "https://appadmin.loanchacha.com/api/get-product-data-by-keyword";
-    static String SliderAPI = "https://appadmin.loanchacha.com/api/get-slider";
-    static String PartnerSliderAPI = "https://appadmin.loanchacha.com/api/get-partner-slider2";
+	static String AdminPageURL = "http://check.loanchacha.com";
+	static String CategoryAPI = "http://check.loanchacha.com/api/get-all-category-data";
+	static String MenuAPI = "http://check.loanchacha.com/api/get-product-data-by-category-id";
+    static String NoticesAPI = "http://check.loanchacha.com/api/get-notices-data-by-category-id";
+    static String SchedulesAPI = "http://check.loanchacha.com/api/get-schedules-data-by-category-id";
+    static String SearchAPI = "http://check.loanchacha.com/api/get-product-data-by-keyword";
+    static String SliderAPI = "http://check.loanchacha.com/api/get-slider";
+    static String PartnerSliderAPI = "http://check.loanchacha.com/api/get-partner-slider2";
 
-    static String NotificationsAPI = "https://appadmin.loanchacha.com/api/get-notifications-partner";
+    static String NotificationsAPI = "http://check.loanchacha.com/api/get-notifications-partner";
 
-    static String EntCategoryAPI = "http://appadmin.loanchacha.com/api/get-greeting-category-data";
-    static String EntMenuAPI = "http://appadmin.loanchacha.com/api/get-greeting-data-by-category-id";
-    static String EntDetailAPI = "http://appadmin.loanchacha.com/api/get-greeting-detail";
+    static String EntCategoryAPI = "http://check.loanchacha.com/api/get-greeting-category-data";
+    static String EntMenuAPI = "http://check.loanchacha.com/api/get-greeting-data-by-category-id";
+    static String EntDetailAPI = "http://check.loanchacha.com/api/get-greeting-detail";
 
-    static String EntSliderAPI = "http://appadmin.loanchacha.com/api/get-greeting-slider";
-
-
-	static String TaxCurrencyAPI = "https://appadmin.loanchacha.com/api/get-tax-and-currency";
-	static String MenuDetailAPI = "https://appadmin.loanchacha.com/api/get-product-detail2";
-    static String NoticesDetailAPI = "https://appadmin.loanchacha.com/api/get-notices-detail";
-    static String SchedulesDetailAPI = "https://appadmin.loanchacha.com/api/get-schedules-detail";
-	static String SendDataAPI = "https://appadmin.loanchacha.com/api/add-order";
-    static String SendEnquiryAPI = "https://appadmin.loanchacha.com/api/add-enquiry";
-    static String SendServiceEnquiryAPI = "https://appadmin.loanchacha.com/api/add-service-enquiry";
-    static String SendContactAPI = "https://appadmin.loanchacha.com/api/add-contact";
-    static String AddLeadAPI = "https://appadmin.loanchacha.com/api/add-lead";
-
-    static String BasicDetailAPI = "https://appadmin.loanchacha.com/api/get-basic-detail";
-    static String LoginDataAPI = "https://appadmin.loanchacha.com/api/login";
-    static String DirectoryDetailAPI = "https://appadmin.loanchacha.com/api/get-directory-detail";
-    static String MenuSliderAPI = "https://appadmin.loanchacha.com/api/get-menu-slider";
-
-    static String ForgotAPI = "https://appadmin.loanchacha.com/api/get-partner-password";
+    static String EntSliderAPI = "http://check.loanchacha.com/api/get-greeting-slider";
 
 
-    static String EventDetailAPI = "https://appadmin.loanchacha.com/api/get-event-detail";
+	static String TaxCurrencyAPI = "http://check.loanchacha.com/api/get-tax-and-currency";
+	static String MenuDetailAPI = "http://check.loanchacha.com/api/get-product-detail2";
+    static String NoticesDetailAPI = "http://check.loanchacha.com/api/get-notices-detail";
+    static String SchedulesDetailAPI = "http://check.loanchacha.com/api/get-schedules-detail";
+	static String SendDataAPI = "http://check.loanchacha.com/api/add-order";
+    static String SendEnquiryAPI = "http://check.loanchacha.com/api/add-enquiry";
+    static String SendServiceEnquiryAPI = "http://check.loanchacha.com/api/add-service-enquiry";
+    static String SendContactAPI = "http://check.loanchacha.com/api/add-contact";
+    static String AddLeadAPI = "http://check.loanchacha.com/api/add-lead";
 
-    static String DirectoryMenuAPI = "https://appadmin.loanchacha.com/api/get-directory-data-by-category-id";
-    static String DirectoryCountAPI = "https://appadmin.loanchacha.com/api/get-directory-count-api";
+    static String BasicDetailAPI = "http://check.loanchacha.com/api/get-basic-detail";
+    static String LoginDataAPI = "http://check.loanchacha.com/api/login";
+    static String DirectoryDetailAPI = "http://check.loanchacha.com/api/get-directory-detail";
+    static String MenuSliderAPI = "http://check.loanchacha.com/api/get-menu-slider";
 
-
-    static String SendRegisterAPI = "https://appadmin.loanchacha.com/api/add-user";
-    static String SendSignUpAPI = "https://appadmin.loanchacha.com/api/add-client";
-    static String LoginClientAPI = "https://appadmin.loanchacha.com/api/login-partner";
-
-    static String BlogCategoryAPI = "https://appadmin.loanchacha.com/api/get-all-blog-category-data";
-    static String BlogAPI = "https://appadmin.loanchacha.com/api/get-blog-data-by-category-id";
-    static String BlogDetailAPI = "https://appadmin.loanchacha.com/api/get-blog-detail";
-    static String EventAPI = "https://appadmin.loanchacha.com/api/get-event-data-by-category-id";
-
-
-    static String GalleryCategoryAPI = "https://appadmin.loanchacha.com/api/get-gallery-category-data";
-    static String VideoGalleryCategoryAPI = "https://appadmin.loanchacha.com/api/get-video-gallery-category-data";
-
-    static String GalleryAPI = "https://appadmin.loanchacha.com/api/get-gallery-data-by-category-id";
-    static String VideoGalleryAPI = "https://appadmin.loanchacha.com/api/get-video-gallery-data-by-category-id";
-    static String GalleryDetailAPI = "https://appadmin.loanchacha.com/api/get-gallery-detail";
-    static String VideoGalleryDetailAPI = "https://appadmin.loanchacha.com/api/get-video-gallery-detail";
-
-    static String DevelopersAPI = "https://appadmin.loanchacha.com/api/get-developers";
-    static String FormsAPI = "https://appadmin.loanchacha.com/api/get-forms";
-    static String FeesAPI = "https://appadmin.loanchacha.com/api/get-fees";
-    static String CrisisAPI = "https://appadmin.loanchacha.com/api/get-crisis";
-    static String CampsAPI = "https://appadmin.loanchacha.com/api/get-camps";
-    static String FaqAPI = "https://appadmin.loanchacha.com/api/get-faq";
-
-    static String DownloadsAPI = "https://appadmin.loanchacha.com/api/get-downloads-data-by-category-id";
-
-    static String AllLeadsAPI = "https://appadmin.loanchacha.com/api/get-all-leads";
-    static String AllFreelancersAPI = "https://appadmin.loanchacha.com/api/get-all-freelancers";
+    static String ForgotAPI = "http://check.loanchacha.com/api/get-partner-password";
 
 
-    static String AddLeadsAPI = "https://appadmin.loanchacha.com/api/add-lead";
-    static String CreateOrderAPI = "https://appadmin.loanchacha.com/api/add-order";
-    static String ViewOrderAPI = "https://appadmin.loanchacha.com/api/view-orders";
-    static String MyProfileAPI = "https://appadmin.loanchacha.com/api/my-profile";
-    static String MyEarningsAPI = "https://appadmin.loanchacha.com/api/my-earnings";
-    static String MyVisitingCardAPI = "https://appadmin.loanchacha.com/api/my-visiting-card";
-    static String GreetingsAPI = "https://appadmin.loanchacha.com/api/greetings";
-    static String OrderDetailAPI = "https://appadmin.loanchacha.com/api/order-details";
+    static String EventDetailAPI = "http://check.loanchacha.com/api/get-event-detail";
 
-    static String AddFreelancerAPI = "https://appadmin.loanchacha.com/api/add-freelancer";
+    static String DirectoryMenuAPI = "http://check.loanchacha.com/api/get-directory-data-by-category-id";
+    static String DirectoryCountAPI = "http://check.loanchacha.com/api/get-directory-count-api";
 
-    static String JoinFreelancerAPI = "https://appadmin.loanchacha.com/api/join-freelancer";
 
+    static String SendRegisterAPI = "http://check.loanchacha.com/api/add-user";
+    static String SendSignUpAPI = "http://check.loanchacha.com/api/add-client";
+    static String LoginClientAPI = "http://check.loanchacha.com/api/login-partner";
+
+    static String BlogCategoryAPI = "http://check.loanchacha.com/api/get-all-blog-category-data";
+    static String BlogAPI = "http://check.loanchacha.com/api/get-blog-data-by-category-id";
+    static String BlogDetailAPI = "http://check.loanchacha.com/api/get-blog-detail";
+    static String EventAPI = "http://check.loanchacha.com/api/get-event-data-by-category-id";
+
+
+    static String GalleryCategoryAPI = "http://check.loanchacha.com/api/get-gallery-category-data";
+    static String VideoGalleryCategoryAPI = "http://check.loanchacha.com/api/get-video-gallery-category-data";
+
+    static String GalleryAPI = "http://check.loanchacha.com/api/get-gallery-data-by-category-id";
+    static String VideoGalleryAPI = "http://check.loanchacha.com/api/get-video-gallery-data-by-category-id";
+    static String GalleryDetailAPI = "http://check.loanchacha.com/api/get-gallery-detail";
+    static String VideoGalleryDetailAPI = "http://check.loanchacha.com/api/get-video-gallery-detail";
+
+    static String DevelopersAPI = "http://check.loanchacha.com/api/get-developers";
+    static String FormsAPI = "http://check.loanchacha.com/api/get-forms";
+    static String FeesAPI = "http://check.loanchacha.com/api/get-fees";
+    static String CrisisAPI = "http://check.loanchacha.com/api/get-crisis";
+    static String CampsAPI = "http://check.loanchacha.com/api/get-camps";
+    static String FaqAPI = "http://check.loanchacha.com/api/get-faq";
+
+    static String DownloadsAPI = "http://check.loanchacha.com/api/get-downloads-data-by-category-id";
+
+    static String AllLeadsAPI = "http://check.loanchacha.com/api/get-all-leads";
+    static String AllFreelancersAPI = "http://check.loanchacha.com/api/get-all-freelancers";
+
+
+    static String AddLeadsAPI = "http://check.loanchacha.com/api/add-lead";
+    static String CreateOrderAPI = "http://check.loanchacha.com/api/add-order";
+    static String ViewOrderAPI = "http://check.loanchacha.com/api/view-orders";
+    static String MyProfileAPI = "http://check.loanchacha.com/api/my-profile";
+    static String MyEarningsAPI = "http://check.loanchacha.com/api/my-earnings";
+    static String MyVisitingCardAPI = "http://check.loanchacha.com/api/my-visiting-card";
+    static String GreetingsAPI = "http://check.loanchacha.com/api/greetings";
+    static String OrderDetailAPI = "http://check.loanchacha.com/api/order-details";
+
+    static String AddFreelancerAPI = "http://check.loanchacha.com/api/add-freelancer";
+
+    static String JoinFreelancerAPI = "http://check.loanchacha.com/api/join-freelancer";
+
+    static String MyNewsAPI = "http://check.loanchacha.com/api/get-slider-articles";
+    static String MyNewLead = "http://check.loanchacha.com/api/add-lead";
 
     static String Payment;
     static String Cancel;

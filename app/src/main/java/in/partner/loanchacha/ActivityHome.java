@@ -9,16 +9,12 @@ import java.net.MalformedURLException;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import android.*;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -26,7 +22,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.text.Html;
 import android.util.Log;
@@ -41,7 +36,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -53,7 +47,6 @@ import android.widget.Toast;
 
 
 import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -132,7 +125,7 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
         super.onCreate(savedInstanceState);
 
         if (!Constant.isNetworkAvailable(getActivity())) {
-      //      Toast.makeText(getActivity(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+            //      Toast.makeText(getActivity(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), ActivityNoInternet.class);
             startActivity(intent);
             getActivity().finish();
@@ -165,7 +158,7 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
 
         MenuAPI = Constant.MenuAPI+"?accesskey="+Constant.AccessKey+"&category_id=-55";
 
-       // Toast.makeText(getActivity(),MenuAPI,Toast.LENGTH_LONG).show();
+        // Toast.makeText(getActivity(),MenuAPI,Toast.LENGTH_LONG).show();
         // tax and currency API url
 
 
@@ -234,7 +227,7 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
         webSlider = (WebView) v.findViewById(R.id.txtSlider);
         webSlider.setVisibility(View.VISIBLE);
         webSlider.getSettings().setJavaScriptEnabled(true);
-        webSlider.loadUrl(Constant.PartnerSliderAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
+        webSlider.loadUrl(Constant.MyNewLead+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
         webSlider.setVerticalScrollBarEnabled(false);
         webSlider.setHorizontalScrollBarEnabled(false);
 
@@ -449,7 +442,7 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
 
         });
 
-       // webSlider.setVisibility(View.GONE);
+        // webSlider.setVisibility(View.GONE);
         ActivityCompat.requestPermissions(ActivityHome.this.getActivity(),
                 new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION},
                 1);
@@ -502,11 +495,11 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
 
 
 
-     //   Toast.makeText(getActivity(),CategoryAPI,Toast.LENGTH_LONG).show();
+        //   Toast.makeText(getActivity(),CategoryAPI,Toast.LENGTH_LONG).show();
         // call asynctask class to request data from server
-     //   new getDataTask().execute();
+        //   new getDataTask().execute();
 
-  //      clearData();
+        //      clearData();
 //
 
         clearData();
@@ -548,8 +541,8 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
         listCategory.setAdapter(cla);
         listCategory.setExpanded(true);
 
-      //  listCategory.setNumColumns(6);
-       // setGridViewHeightBasedOnChildren(listCategory,6);
+        //  listCategory.setNumColumns(6);
+        // setGridViewHeightBasedOnChildren(listCategory,6);
 
         // event listener to handle list when clicked
 
@@ -561,7 +554,7 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
                 // go to menu page
 
                 //  Toast.makeText(getActivity(),"Leaf: "+IsLeaf.get(position).toString(),Toast.LENGTH_LONG).show();
-               if(position==0) {
+                if(position==0) {
 
                    /*  startActivity(new Intent(getActivity(), ActivityAddLead.class));
                      getActivity().overridePendingTransition(R.anim.open_next, R.anim.close_next);*/
@@ -579,14 +572,14 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
                    startActivity(i);
                    getActivity().overridePendingTransition(R.anim.open_next, R.anim.close_next);*/
 
-                   Intent i = new Intent(getActivity(), ActivityPayu.class);
+                    Intent i = new Intent(getActivity(), ActivityPayu.class);
 
-                   i.putExtra("URL",Constant.AddLeadsAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
+                    i.putExtra("URL",Constant.AddLeadsAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
 
-                  // Toast.makeText(getActivity(),Constant.AddLeadsAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id,Toast.LENGTH_LONG).show();
-                   i.putExtra("title","Add Leads");
-                   startActivity(i);
-                   getActivity().overridePendingTransition(R.anim.open_next, R.anim.close_next);
+                    // Toast.makeText(getActivity(),Constant.AddLeadsAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id,Toast.LENGTH_LONG).show();
+                    i.putExtra("title","Add Leads");
+                    startActivity(i);
+                    getActivity().overridePendingTransition(R.anim.open_next, R.anim.close_next);
 
 
 
@@ -599,16 +592,16 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
                     // getActivity().overridePendingTransition(R.anim.open_next, R.anim.close_next);
 
 
-                   Intent i = new Intent(getActivity(), ActivityPayu.class);
+                    Intent i = new Intent(getActivity(), ActivityPayu.class);
 
-                   i.putExtra("URL",Constant.AllLeadsAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
-                   i.putExtra("title","All Leads");
-                   startActivity(i);
-                   getActivity().overridePendingTransition(R.anim.open_next, R.anim.close_next);
-                   //getActivity().finish();
+                    i.putExtra("URL",Constant.AllLeadsAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
+                    i.putExtra("title","All Leads");
+                    startActivity(i);
+                    getActivity().overridePendingTransition(R.anim.open_next, R.anim.close_next);
+                    //getActivity().finish();
 
-                   //startActivity(new Intent(getActivity(), ActivityLeadsList.class));
-                   //getActivity().overridePendingTransition(R.anim.open_next, R.anim.close_next);
+                    //startActivity(new Intent(getActivity(), ActivityLeadsList.class));
+                    //getActivity().overridePendingTransition(R.anim.open_next, R.anim.close_next);
 
                    /*try {
 
@@ -650,24 +643,24 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
 
                 } else if(position==2) {
 
-                   Intent i = new Intent(getActivity(), ActivityPayu.class);
+                    Intent i = new Intent(getActivity(), ActivityPayu.class);
 
-                   i.putExtra("URL",Constant.CreateOrderAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
-                   i.putExtra("title","Create Order");
-                   startActivity(i);
-                   getActivity().overridePendingTransition(R.anim.open_next, R.anim.close_next);
+                    i.putExtra("URL",Constant.CreateOrderAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
+                    i.putExtra("title","Create Order");
+                    startActivity(i);
+                    getActivity().overridePendingTransition(R.anim.open_next, R.anim.close_next);
 
 
                 } else if(position ==3) {
 
                     //customer care
 
-                   Intent i = new Intent(getActivity(), ActivityPayu.class);
+                    Intent i = new Intent(getActivity(), ActivityPayu.class);
 
-                   i.putExtra("URL",Constant.ViewOrderAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
-                   i.putExtra("title","View Orders");
-                   startActivity(i);
-                   getActivity().overridePendingTransition(R.anim.open_next, R.anim.close_next);
+                    i.putExtra("URL",Constant.ViewOrderAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
+                    i.putExtra("title","View Orders");
+                    startActivity(i);
+                    getActivity().overridePendingTransition(R.anim.open_next, R.anim.close_next);
 
 
 
@@ -790,7 +783,7 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
         protected void onPostExecute(Void result) {
             // TODO Auto-generated method stub
             // when finish parsing, hide progressbar
-         //   prgLoading.setVisibility(8);
+            //   prgLoading.setVisibility(8);
 
             // if data available show data on list
             // otherwise, show alert text
@@ -799,7 +792,7 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
                 listMenu.setAdapter(mla);
                 listMenu.setExpanded(true);
             }else{
-           //     txtAlert.setVisibility(0);
+                //     txtAlert.setVisibility(0);
             }
 
         }
@@ -864,7 +857,7 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
         gridviewAdapter = new AdapaterGridView(getActivity(), R.layout.fragment_list_item, data);
         gridview.setAdapter(gridviewAdapter);
 
-      //  setGridViewHeightBasedOnChildren(listCategory,6);
+        //  setGridViewHeightBasedOnChildren(listCategory,6);
         listCategory.setExpanded(true);
     }
 
@@ -1018,7 +1011,7 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
                 New_Category_image.add(category.getString("Category_image"));
                 //New_IsLeaf.add(category.getString("is_leaf"));
                 New_IsLeaf.add("1");
-              //  Log.d("Category name", Category_name.get(i));
+                //  Log.d("Category name", Category_name.get(i));
 
             }
 
@@ -1046,12 +1039,12 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
 
     void clearDataProducts(){
 
-            Menu_ID.clear();
-            Menu_name.clear();
-            Menu_quantity.clear();
-            Menu_price.clear();
-            Menu_max_price.clear();
-            Menu_image.clear();
+        Menu_ID.clear();
+        Menu_name.clear();
+        Menu_quantity.clear();
+        Menu_price.clear();
+        Menu_max_price.clear();
+        Menu_image.clear();
 
     }
 
@@ -1093,7 +1086,7 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
     // method to parse json data from server
     public void parseJSONData(){
 
-     //   clearData();
+        //   clearData();
 
       /*  try {
             // request data from Category API

@@ -41,13 +41,13 @@ public class MainActivity extends FragmentActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
-    private SliderLayout sliderLayout;
+	private SliderLayout sliderLayout;
 
-    String str_earn;
-    String user_type, user_id, fr_phone;
+	String str_earn;
+	String user_type, user_id, fr_phone;
 
-    // static DBHelper dbhelper;
-    ArrayList<ArrayList<Object>> data;
+	// static DBHelper dbhelper;
+	ArrayList<ArrayList<Object>> data;
 
 	// nav drawer title
 	private CharSequence mDrawerTitle;
@@ -67,8 +67,8 @@ public class MainActivity extends FragmentActivity {
 	AdapterMainMenu mma;
 
 
-    public static final String MyPREFERENCES = "MyPrefs";
-    SharedPreferences prefs;
+	public static final String MyPREFERENCES = "MyPrefs";
+	SharedPreferences prefs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +85,10 @@ public class MainActivity extends FragmentActivity {
 		ParseInstallation.getCurrentInstallation().saveInBackground();
         */
 
-        prefs = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+		prefs = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        user_type = prefs.getString("user_type","");
-        user_id = prefs.getString("user_id","");
+		user_type = prefs.getString("user_type","");
+		user_id = prefs.getString("user_id","");
 		fr_phone = prefs.getString("Phone","");
 
 
@@ -112,34 +112,31 @@ public class MainActivity extends FragmentActivity {
 		// adding nav drawer items to array
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
 		navDrawerItems.add(new NavDrawerItem("About Us", navMenuIcons.getResourceId(5, -1)));
-        navDrawerItems.add(new NavDrawerItem("Notifications", navMenuIcons.getResourceId(5, -1)));
-        navDrawerItems.add(new NavDrawerItem("My Profile", navMenuIcons.getResourceId(5, -1)));
+		navDrawerItems.add(new NavDrawerItem("Notifications", navMenuIcons.getResourceId(5, -1)));
+		navDrawerItems.add(new NavDrawerItem("My Profile", navMenuIcons.getResourceId(5, -1)));
+		navDrawerItems.add(new NavDrawerItem("News & Articles", navMenuIcons.getResourceId(5, -1)));
 		navDrawerItems.add(new NavDrawerItem("Visiting Card", navMenuIcons.getResourceId(5, -1)));
 
-		if(user_type.equals("LOANMITRA")) {
-			str_earn = "My Earnings";
-		} else  {
-			str_earn = "Commission";
-		}
-		navDrawerItems.add(new NavDrawerItem(str_earn, navMenuIcons.getResourceId(5, -1)));
+//		if(user_type.equals("FREELANCER")) {
+//			str_earn = "My Earnings";
+//		} else  {
+//			str_earn = "Commission";
+//		}
+//		navDrawerItems.add(new NavDrawerItem(str_earn, navMenuIcons.getResourceId(5, -1)));
 
 
 		navDrawerItems.add(new NavDrawerItem("Greetings", navMenuIcons.getResourceId(5, -1)));
-	//	navDrawerItems.add(new NavDrawerItem("Products", navMenuIcons.getResourceId(5, -1)));
-	//	navDrawerItems.add(new NavDrawerItem("Pay Online", navMenuIcons.getResourceId(5, -1)));
-	//	navDrawerItems.add(new NavDrawerItem("Photo Gallery", navMenuIcons.getResourceId(10, -1)));
-	//	navDrawerItems.add(new NavDrawerItem("Video Gallery", navMenuIcons.getResourceId(10, -1)));
-      //  navDrawerItems.add(new NavDrawerItem("Notifications", navMenuIcons.getResourceId(11, -1)));
+
 		navDrawerItems.add(new NavDrawerItem("Facebook", navMenuIcons.getResourceId(10, -1)));
 		navDrawerItems.add(new NavDrawerItem("Instagram", navMenuIcons.getResourceId(5, -1)));
 		navDrawerItems.add(new NavDrawerItem("Youtube", navMenuIcons.getResourceId(10, -1)));
 		navDrawerItems.add(new NavDrawerItem("Locate Us", navMenuIcons.getResourceId(10, -1)));
 		navDrawerItems.add(new NavDrawerItem("Contact Us", navMenuIcons.getResourceId(5, -1)));
-		//navDrawerItems.add(new NavDrawerItem("Credits", navMenuIcons.getResourceId(10, -1)));
-		navDrawerItems.add(new NavDrawerItem("Logout", navMenuIcons.getResourceId(10, -1)));
-        //navDrawerItems.add(new NavDrawerItem(navMenuTitles[10], navMenuIcons.getResourceId(10, -1)));
 
-        // Recycle the typed array
+		navDrawerItems.add(new NavDrawerItem("Logout", navMenuIcons.getResourceId(10, -1)));
+		//navDrawerItems.add(new NavDrawerItem(navMenuTitles[10], navMenuIcons.getResourceId(10, -1)));
+
+		// Recycle the typed array
 		navMenuIcons.recycle();
 
 		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
@@ -166,8 +163,8 @@ public class MainActivity extends FragmentActivity {
 			startActivity(intent);
 			finish();
 		} else {
-          //  Toast.makeText(MainActivity.this,"P:"+Constant.Payment, Toast.LENGTH_SHORT).show();
-        }
+			//  Toast.makeText(MainActivity.this,"P:"+Constant.Payment, Toast.LENGTH_SHORT).show();
+		}
 
 		/*if (!Constant.isNetworkAvailable(ActivitySplash.this)) {
 			//Toast.makeText(ActivitySplash.this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
@@ -194,27 +191,27 @@ public class MainActivity extends FragmentActivity {
 		// if user has already ordered food previously then show confirm dialog
 		if (dbhelper.isPreviousDataExist()) {
 			//showAlertDialog();
-            dbhelper.deleteAllData();
-            dbhelper.close();
+			dbhelper.deleteAllData();
+			dbhelper.close();
 		}
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, // nav
-																								// menu
-																								// toggle
-																								// icon
+				// menu
+				// toggle
+				// icon
 				R.string.app_name, // nav drawer open - description for
-									// accessibility
+				// accessibility
 				R.string.app_name // nav drawer close - description for
-									// accessibility
+				// accessibility
 		) {
 			public void onDrawerClosed(View view) {
-			//	getActionBar().setTitle(mTitle);
+				//	getActionBar().setTitle(mTitle);
 				// calling onPrepareOptionsMenu() to show action bar icons
 				invalidateOptionsMenu();
 			}
 
 			public void onDrawerOpened(View drawerView) {
-			//	getActionBar().setTitle(mDrawerTitle);
+				//	getActionBar().setTitle(mDrawerTitle);
 				// calling onPrepareOptionsMenu() to hide action bar icons
 				invalidateOptionsMenu();
 			}
@@ -262,9 +259,9 @@ public class MainActivity extends FragmentActivity {
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		//dbhelper.deleteAllData();
-	//	dbhelper.close();
+		//	dbhelper.close();
 //		finish();
-      //  System.exit();
+		//  System.exit();
 //		overridePendingTransition(R.anim.open_main, R.anim.close_next);
 
 		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -319,28 +316,29 @@ public class MainActivity extends FragmentActivity {
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-        switch(item.getItemId()) {
-            case R.id.share:
+		switch(item.getItemId()) {
+			case R.id.share:
+//
+//				if(user_type.equals("FREELANCER")) {
 
-            	if(user_type.equals("LOANMITRA")) {
+					Intent sendInt = new Intent(Intent.ACTION_SEND);
+					//sendInt.putExtra(Intent.EXTRA_SUBJECT, "Loan Chacha App");
+					sendInt.putExtra(Intent.EXTRA_TEXT, "Loan Requirements? Download our app: \""+"Loan Mitra"+"\" https://play.google.com/store/apps/details?id=in.app.loanchacha\nUse Referral Id "+fr_phone+" when signup.");
+					sendInt.setType("text/plain");
+					startActivity(Intent.createChooser(sendInt, "Share"));
+					return true;
 
-				Intent sendInt = new Intent(Intent.ACTION_SEND);
-				//sendInt.putExtra(Intent.EXTRA_SUBJECT, "Loan Chacha App");
-				sendInt.putExtra(Intent.EXTRA_TEXT, "Loan Requirements? Download our app: \""+"Loan Chacha"+"\" https://play.google.com/store/apps/details?id=in.app.loanchacha\nUse Referral Id "+fr_phone+" when signup.");
-				sendInt.setType("text/plain");
-				startActivity(Intent.createChooser(sendInt, "Share"));
-				return true;
+//				}
+//				else {
+//
+//					Intent sendInt = new Intent(Intent.ACTION_SEND);
+//					//sendInt.putExtra(Intent.EXTRA_SUBJECT, "");
+//					sendInt.putExtra(Intent.EXTRA_TEXT, "Download our app: \""+getString(R.string.app_name)+"\" https://play.google.com/store/apps/details?id="+getPackageName());
+//					sendInt.setType("text/plain");
+//					startActivity(Intent.createChooser(sendInt, "Share"));
+//					return true;
 
-				} else {
-
-				Intent sendInt = new Intent(Intent.ACTION_SEND);
-				//sendInt.putExtra(Intent.EXTRA_SUBJECT, "");
-				sendInt.putExtra(Intent.EXTRA_TEXT, "Download our app: \""+getString(R.string.app_name)+"\" https://play.google.com/store/apps/details?id="+getPackageName());
-				sendInt.setType("text/plain");
-				startActivity(Intent.createChooser(sendInt, "Share"));
-				return true;
-
-				}
+//				}
 
 
 			case R.id.call:
@@ -371,9 +369,6 @@ public class MainActivity extends FragmentActivity {
 				overridePendingTransition (R.anim.open_next, R.anim.close_next);
 				return true;
 
-
-
-
 		}
 		// Handle action bar actions click
 	/*	switch (item.getItemId()) {
@@ -391,7 +386,7 @@ public class MainActivity extends FragmentActivity {
 		default:
 			return super.onOptionsItemSelected(item);
 		} */
-        return super.onOptionsItemSelected(item);
+		return super.onOptionsItemSelected(item);
 	}
 
 	/*
@@ -401,7 +396,7 @@ public class MainActivity extends FragmentActivity {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// if nav drawer is opened, hide the action items
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-	//	menu.findItem(R.id.ic_menu).setVisible(!drawerOpen);
+		//	menu.findItem(R.id.ic_menu).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
 	}
 
@@ -412,51 +407,23 @@ public class MainActivity extends FragmentActivity {
 		// update the main content by replacing fragments
 		Fragment fragment = null;
 		switch (position) {
-		case 0:
-			fragment = new ActivityHome();
-			break;
+			case 0:
+				fragment = new ActivityHome();
+				loadFragmet(fragment,position);
+				break;
 
-		case 1:
-			startActivity(new Intent(getApplicationContext(), ActivityProfile.class));
-			overridePendingTransition(R.anim.open_next, R.anim.close_next);
-			break;
+			case 1:
+				startActivity(new Intent(getApplicationContext(), ActivityProfile.class));
+				overridePendingTransition(R.anim.open_next, R.anim.close_next);
+				break;
 
 
 			case 2:
 
-                Intent i = new Intent(getApplicationContext(), ActivityPayu.class);
-                //String ar[] = url.split(":");
-                i.putExtra("URL",Constant.NotificationsAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
-                i.putExtra("title","Notifications");
-                startActivity(i);
-                overridePendingTransition(R.anim.open_next, R.anim.close_next);
-
-
-                //startActivity(new Intent(getApplicationContext(), ActivityProfile.class));
-                //overridePendingTransition(R.anim.open_next, R.anim.close_next);
-                break;
-
-
-            case 3:
-
-                 i = new Intent(getApplicationContext(), ActivityPayu.class);
-                //String ar[] = url.split(":");
-                i.putExtra("URL",Constant.MyProfileAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
-                i.putExtra("title","My Profile");
-                startActivity(i);
-                overridePendingTransition(R.anim.open_next, R.anim.close_next);
-
-
-                //startActivity(new Intent(getApplicationContext(), ActivityProfile.class));
-                //overridePendingTransition(R.anim.open_next, R.anim.close_next);
-                break;
-
-			case 4:
-
-				i = new Intent(getApplicationContext(), ActivityPayu.class);
+				Intent i = new Intent(getApplicationContext(), ActivityPayu.class);
 				//String ar[] = url.split(":");
-				i.putExtra("URL",Constant.MyVisitingCardAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
-				i.putExtra("title","My Visiting Card");
+				i.putExtra("URL",Constant.NotificationsAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
+				i.putExtra("title","Notifications");
 				startActivity(i);
 				overridePendingTransition(R.anim.open_next, R.anim.close_next);
 
@@ -465,37 +432,71 @@ public class MainActivity extends FragmentActivity {
 				//overridePendingTransition(R.anim.open_next, R.anim.close_next);
 				break;
 
-		 case 5:
-			/* startActivity(new Intent(getApplicationContext(), ActivityForms.class));
-			overridePendingTransition(R.anim.open_next, R.anim.close_next); */
 
-			 i = new Intent(getApplicationContext(), ActivityPayu.class);
-			 //String ar[] = url.split(":");
-			 i.putExtra("URL",Constant.MyEarningsAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
-			 i.putExtra("title",str_earn);
-			 startActivity(i);
-			 overridePendingTransition(R.anim.open_next, R.anim.close_next);
+			case 3:
 
-
-			 //startActivity(new Intent(getApplicationContext(), ActivityProfile.class));
-			 //overridePendingTransition(R.anim.open_next, R.anim.close_next);
-			 break;
-
-			case 6:
-			 startActivity(new Intent(getApplicationContext(), ActivityEntList.class));
-			overridePendingTransition(R.anim.open_next, R.anim.close_next);
-
-		/*		i = new Intent(getApplicationContext(), ActivityPayu.class);
+				i = new Intent(getApplicationContext(), ActivityPayu.class);
 				//String ar[] = url.split(":");
-				i.putExtra("URL",Constant.GreetingsAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
-				i.putExtra("title","Greetings");
+				i.putExtra("URL",Constant.MyProfileAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
+				i.putExtra("title","My Profile");
 				startActivity(i);
-				overridePendingTransition(R.anim.open_next, R.anim.close_next);*/
+				overridePendingTransition(R.anim.open_next, R.anim.close_next);
 
 
 				//startActivity(new Intent(getApplicationContext(), ActivityProfile.class));
 				//overridePendingTransition(R.anim.open_next, R.anim.close_next);
 				break;
+
+			case 4:
+
+				i = new Intent(getApplicationContext(), ActivityNewsArticles.class);
+				//String ar[] = url.split(":");
+				i.putExtra("URL",Constant.MyNewsAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id+"&app_type=0");
+				i.putExtra("title","News and Articles");
+				startActivity(i);
+				overridePendingTransition(R.anim.open_next, R.anim.close_next);
+
+//				startActivity(new Intent(getApplicationContext(), ActivityProfile.class));
+//				overridePendingTransition(R.anim.open_next, R.anim.close_next);
+				break;
+			case 5:
+				//startActivity(new Intent(getApplicationContext(), ActivityEntList.class));
+				//overridePendingTransition(R.anim.open_next, R.anim.close_next);
+				i = new Intent(getApplicationContext(), ActivityPayu.class);
+				//String ar[] = url.split(":");
+				i.putExtra("URL",Constant.MyVisitingCardAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
+				i.putExtra("title","Visiting Card");
+				startActivity(i);
+				overridePendingTransition(R.anim.open_next, R.anim.close_next);
+				//startActivity(new Intent(getApplicationContext(), ActivityProfile.class));
+				//overridePendingTransition(R.anim.open_next, R.anim.close_next);
+				break;
+//			case 6:
+//			/* startActivity(new Intent(getApplicationContext(), ActivityForms.class));
+//			overridePendingTransition(R.anim.open_next, R.anim.close_next); */
+//
+//				i = new Intent(getApplicationContext(), ActivityPayu.class);
+//				//String ar[] = url.split(":");
+//				i.putExtra("URL",Constant.MyEarningsAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
+//				i.putExtra("title",str_earn);
+//				startActivity(i);
+//				overridePendingTransition(R.anim.open_next, R.anim.close_next);
+//
+//
+//				//startActivity(new Intent(getApplicationContext(), ActivityProfile.class));
+//				//overridePendingTransition(R.anim.open_next, R.anim.close_next);
+//				break;
+
+			case 6:
+
+				i = new Intent(getApplicationContext(), ActivityPayu.class);
+				//String ar[] = url.split(":");
+				i.putExtra("URL",Constant.EntSliderAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
+				i.putExtra("title","Greetings");
+				startActivity(i);
+				overridePendingTransition(R.anim.open_next, R.anim.close_next);
+				break;
+
 
 
 /*
@@ -588,56 +589,25 @@ public class MainActivity extends FragmentActivity {
 
 				break;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			case 11:
 				startActivity(new Intent(getApplicationContext(), ActivityContact.class));
 				overridePendingTransition(R.anim.open_next, R.anim.close_next);
 				break;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 		/*	case 12:
 				startActivity(new Intent(getApplicationContext(), ActivityDevelopers.class));
 				overridePendingTransition(R.anim.open_next, R.anim.close_next);
 				break;*/
 
+
+
 			case 12: //logout
 				prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
 				SharedPreferences.Editor editor = prefs.edit();
 
-
 				editor.remove("Phone");
 				editor.remove("Password");
 				editor.apply();
-
 
 				//  editor.clear();
 				//  editor.commit();
@@ -650,44 +620,47 @@ public class MainActivity extends FragmentActivity {
 
 				break;
 
-        case 14:
+			case 13:
 
-			DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					switch (which){
-						case DialogInterface.BUTTON_POSITIVE:
-							//Yes button clicked
+				DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						switch (which){
+							case DialogInterface.BUTTON_POSITIVE:
+								//Yes button clicked
 
-							dbhelper.deleteAllData();
-							dbhelper.close();
-							MainActivity.this.finish();
-							overridePendingTransition(R.anim.open_next, R.anim.close_next);
+								dbhelper.deleteAllData();
+								dbhelper.close();
+								MainActivity.this.finish();
+								overridePendingTransition(R.anim.open_next, R.anim.close_next);
 
-							dialog.dismiss();
-							break;
+								dialog.dismiss();
+								break;
 
-						case DialogInterface.BUTTON_NEGATIVE:
-							//No button clicked
-							dialog.dismiss();
-							break;
+							case DialogInterface.BUTTON_NEGATIVE:
+								//No button clicked
+								dialog.dismiss();
+								break;
+						}
 					}
-				}
-			};
+				};
 
-			AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-			builder.setMessage("Are you sure you want to exit?").setPositiveButton("Yes", dialogClickListener)
-					.setNegativeButton("No", dialogClickListener).setTitle("Exit App?").show();
-
-
-			break;
+				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+				builder.setMessage("Are you sure you want to exit?").setPositiveButton("Yes", dialogClickListener)
+						.setNegativeButton("No", dialogClickListener).setTitle("Exit App?").show();
 
 
+				break;
 
-		default:
-			break;
+
+
+			default:
+				break;
 		}
 
+
+	}
+	public void loadFragmet(Fragment fragment, int position){
 		if (fragment != null) {
 			android.app.FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
@@ -774,14 +747,14 @@ public class MainActivity extends FragmentActivity {
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
-    public void callNow(View view) {
-        //Toast.makeText(this,"Hello",Toast.LENGTH_LONG).show();
+	public void callNow(View view) {
+		//Toast.makeText(this,"Hello",Toast.LENGTH_LONG).show();
 
-        String uri = "tel:" + Constant.Helpline ;
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse(uri));
-        startActivity(intent);
+		String uri = "tel:" + Constant.Helpline ;
+		Intent intent = new Intent(Intent.ACTION_DIAL);
+		intent.setData(Uri.parse(uri));
+		startActivity(intent);
 
-    }
+	}
 
 }
