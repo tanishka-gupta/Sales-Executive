@@ -257,17 +257,62 @@ public class MainActivity extends FragmentActivity {
  */
 	@Override
 	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		//dbhelper.deleteAllData();
-		//	dbhelper.close();
-//		finish();
-		//  System.exit();
-//		overridePendingTransition(R.anim.open_main, R.anim.close_next);
+//		// TODO Auto-generated method stub
+//		//dbhelper.deleteAllData();
+//	//	dbhelper.close();
+////		finish();
+//      //  System.exit();
+////		overridePendingTransition(R.anim.open_main, R.anim.close_next);
+//
+//		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				switch (which){
+//					case DialogInterface.BUTTON_POSITIVE:
+//						//Yes button clicked
+//						dbhelper.deleteAllData();
+//						dbhelper.close();
+//						finish();
+//						//  System.exit();
+//						overridePendingTransition(R.anim.open_main, R.anim.close_next);
+//						dialog.dismiss();
+//						break;
+//
+//					case DialogInterface.BUTTON_NEGATIVE:
+//						//No button clicked
+//						dialog.dismiss();
+//						break;
+//				}
+//			}
+//		};
+//
+//		AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//		builder.setMessage("Are you sure you want to exit?").setPositiveButton("Yes", dialogClickListener)
+//				.setNegativeButton("No", dialogClickListener).setTitle("Exit App?").show();
 
+		// TODO Auto-generated method stub
+		if(getFragmentManager().getFragments().size()>1) {
+			android.app.FragmentManager fragmentManager = getFragmentManager();
+			Fragment fragment = getFragmentManager().getFragments().get(1);
+			if (fragment instanceof ActivityHome) {
+				if(((ActivityHome) fragment).check()){
+					dialogClose();
+				}
+
+			}
+		}else {
+
+			dialogClose();
+		}
+	}
+
+
+
+	public void dialogClose(){
 		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				switch (which){
+				switch (which) {
 					case DialogInterface.BUTTON_POSITIVE:
 						//Yes button clicked
 						dbhelper.deleteAllData();
@@ -289,8 +334,6 @@ public class MainActivity extends FragmentActivity {
 		AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 		builder.setMessage("Are you sure you want to exit?").setPositiveButton("Yes", dialogClickListener)
 				.setNegativeButton("No", dialogClickListener).setTitle("Exit App?").show();
-
-
 	}
 
 	/**
@@ -318,26 +361,25 @@ public class MainActivity extends FragmentActivity {
 		}
 		switch(item.getItemId()) {
 			case R.id.share:
+
+//            	if(user_type.equals("FREELANCER")) {
+
+				Intent sendInt = new Intent(Intent.ACTION_SEND);
+				//sendInt.putExtra(Intent.EXTRA_SUBJECT, "Loan Chacha App");
+				sendInt.putExtra(Intent.EXTRA_TEXT, "Loan Requirements? Download our app: \""+"Loan Mitra"+"\"https://appadmin.loanchacha.com/new-lead?refid="+user_id+"\nUse Referral Id "+user_id+" when signup.");
+				sendInt.setType("text/plain");
+				startActivity(Intent.createChooser(sendInt, "Share"));
+				return true;
+
+//				} else {
 //
-//				if(user_type.equals("FREELANCER")) {
-
-					Intent sendInt = new Intent(Intent.ACTION_SEND);
-					//sendInt.putExtra(Intent.EXTRA_SUBJECT, "Loan Chacha App");
-					sendInt.putExtra(Intent.EXTRA_TEXT, "Loan Requirements? Download our app: \""+"Loan Mitra"+"\" https://play.google.com/store/apps/details?id=in.app.loanchacha\nUse Referral Id "+fr_phone+" when signup.");
-					sendInt.setType("text/plain");
-					startActivity(Intent.createChooser(sendInt, "Share"));
-					return true;
-
-//				}
-//				else {
+//				Intent sendInt = new Intent(Intent.ACTION_SEND);
+//				//sendInt.putExtra(Intent.EXTRA_SUBJECT, "");
+//				sendInt.putExtra(Intent.EXTRA_TEXT, "Download our app: \""+getString(R.string.app_name)+"\" https://play.google.com/store/apps/details?id="+getPackageName());
+//				sendInt.setType("text/plain");
+//				startActivity(Intent.createChooser(sendInt, "Share"));
+//				return true;
 //
-//					Intent sendInt = new Intent(Intent.ACTION_SEND);
-//					//sendInt.putExtra(Intent.EXTRA_SUBJECT, "");
-//					sendInt.putExtra(Intent.EXTRA_TEXT, "Download our app: \""+getString(R.string.app_name)+"\" https://play.google.com/store/apps/details?id="+getPackageName());
-//					sendInt.setType("text/plain");
-//					startActivity(Intent.createChooser(sendInt, "Share"));
-//					return true;
-
 //				}
 
 
@@ -368,6 +410,9 @@ public class MainActivity extends FragmentActivity {
 				startActivity(iMyOrder);
 				overridePendingTransition (R.anim.open_next, R.anim.close_next);
 				return true;
+
+
+
 
 		}
 		// Handle action bar actions click
@@ -471,21 +516,21 @@ public class MainActivity extends FragmentActivity {
 				//startActivity(new Intent(getApplicationContext(), ActivityProfile.class));
 				//overridePendingTransition(R.anim.open_next, R.anim.close_next);
 				break;
-//			case 6:
+//		 case 6:
 //			/* startActivity(new Intent(getApplicationContext(), ActivityForms.class));
 //			overridePendingTransition(R.anim.open_next, R.anim.close_next); */
 //
-//				i = new Intent(getApplicationContext(), ActivityPayu.class);
-//				//String ar[] = url.split(":");
-//				i.putExtra("URL",Constant.MyEarningsAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
-//				i.putExtra("title",str_earn);
-//				startActivity(i);
-//				overridePendingTransition(R.anim.open_next, R.anim.close_next);
+//			 i = new Intent(getApplicationContext(), ActivityPayu.class);
+//			 //String ar[] = url.split(":");
+//			 i.putExtra("URL",Constant.MyEarningsAPI+"?accesskey="+Constant.AccessKey+"&user_type="+user_type+"&user_id="+user_id);
+//			 i.putExtra("title",str_earn);
+//			 startActivity(i);
+//			 overridePendingTransition(R.anim.open_next, R.anim.close_next);
 //
 //
-//				//startActivity(new Intent(getApplicationContext(), ActivityProfile.class));
-//				//overridePendingTransition(R.anim.open_next, R.anim.close_next);
-//				break;
+//			 //startActivity(new Intent(getApplicationContext(), ActivityProfile.class));
+//			 //overridePendingTransition(R.anim.open_next, R.anim.close_next);
+//			 break;
 
 			case 6:
 

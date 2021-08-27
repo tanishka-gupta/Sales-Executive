@@ -13,11 +13,9 @@
         android:fadeScrollbars="true"
         android:visibility="visible" >
 
-
-
         <LinearLayout
             android:id="@+id/lytContent"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp"
@@ -27,12 +25,13 @@
             >
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/logo"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:visibility="gone"
                 />
 
             <TextView
@@ -51,18 +50,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                >
+
 
                 <ToggleButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/toggleLoanMitra"
-                    android:text="LoanMitra"
-                    android:textOff="LoanMitra"
+                    android:id="@+id/toggleFreelancer"
+                    android:text="Freelancer"
+                    android:textOff="Freelancer"
                     android:textOn="Franchise"
                     android:layout_weight="1"
                     android:visibility="gone"
+
+
+
                     ></ToggleButton>
+
+
+
 
                 <Switch
                     android:id="@+id/switchUser"
@@ -74,7 +81,7 @@
                     android:visibility="gone"
                     android:checked="true"
                     android:textOff="FRANCHISE"
-                    android:textOn="LOANMITRA"/>
+                    android:textOn="FREELANCER"/>
 
             </LinearLayout>
 
@@ -134,27 +141,38 @@
                 android:id="@+id/userRadioGroup"
                 android:layout_weight=".07"
                 android:visibility="gone"
-                android:checkedButton="@+id/sound" />
+                android:checkedButton="@+id/sound" >
 
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/radioLoanMitra"
+                    android:id="@+id/radioFreelancer"
                     android:layout_weight="0.5"
                     android:checked="true"
-                    android:visibility="gone"
-                    android:text="LoanMitra" />
+                    android:text="Freelancer" />
 
 
-<!--                <RadioButton-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:id="@+id/radioFranchise"-->
-<!--                    android:layout_weight="0.5"-->
-<!--                    android:text="Franchise" />-->
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radioFranchise"
 
-<!--            </RadioGroup>-->
+
+                    android:layout_weight="0.5"
+                    android:text="Franchise" />
+
+
+
+
+
+
+
+
+
+
+
+            </RadioGroup>
 
             <EditText
                 android:id="@+id/edtOtp"
@@ -227,7 +245,7 @@
 
             <TextView
 
-                android:id="@+id/joinLoanMitra"
+                android:id="@+id/joinFreelancer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

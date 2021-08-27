@@ -119,6 +119,9 @@ public class Constant {
     static String MyNewsAPI = "http://check.loanchacha.com/api/get-slider-articles";
     static String MyNewLead = "http://check.loanchacha.com/api/add-lead";
 
+    static String USER_TYPE = "FREELANCER";
+    static String ACCESSKEY = "12345";
+
     static String Payment;
     static String Cancel;
      static String Refund;

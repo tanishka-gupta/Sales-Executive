@@ -759,7 +759,13 @@ public class ActivityHome extends Fragment implements OnItemClickListener {
         */
         return v;
     }
-
+    public boolean check(){
+        if (webSlider.canGoBack()) {
+            webSlider.goBack();
+            return false;
+        } else
+            return true;
+    }
     // asynctask class to handle parsing json in background
     public class getDataTaskProducts extends AsyncTask<Void, Void, Void>{
 

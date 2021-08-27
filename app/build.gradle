@@ -53,6 +53,9 @@ dependencies {
     implementation 'com.nineoldandroids:library:2.4.0'
     implementation 'com.daimajia.slider:library:1.1.5@aar'
 
+
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+    implementation 'com.facebook.fresco:fresco:1.8.1'
     implementation 'com.android.support:appcompat-v7:+'
 
     implementation 'com.onesignal:OneSignal:3.12.7'

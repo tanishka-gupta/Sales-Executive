@@ -1,58 +1,41 @@
 package in.partner.loanchacha;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.HTTP;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.database.SQLException;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -60,24 +43,27 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 
 
 //import android.widget.CheckBox;
 
 public class ActivitySignup extends FragmentActivity {
-
+    ProgressDialog loading = null;
     Button btnSend, btnLogin, btnForgot, btnGuest;
     EditText edtName, edtPhone,  edtPassword, edtOTP;
-    TextView txtJoinLoanMitra, linkForgot;
+    TextView txtJoinFreelancer, linkForgot;
     ScrollView sclDetail;
     ProgressBar prgLoading;
     TextView txtAlert;
     Spinner spinner;
     Switch switchUser;
-//    RadioButton radioFranchise;
-    RadioButton radioLoanMitra;
+    RadioButton radioFranchise, radioFreelancer;
 
     public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences prefs;
@@ -97,13 +83,13 @@ public class ActivitySignup extends FragmentActivity {
     String Result;
     String TaxCurrencyAPI;
     int IOConnect = 0;
-
+    Context mContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
-
+        mContext = this;
         ActionBar bar = getActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.header)));
         bar.setTitle("Login / Register for Free");
@@ -121,17 +107,17 @@ public class ActivitySignup extends FragmentActivity {
         prgLoading = (ProgressBar) findViewById(R.id.prgLoading);
         txtAlert = (TextView) findViewById(R.id.txtAlert);
         switchUser = (Switch) findViewById(R.id.switchUser);
-        txtJoinLoanMitra = (TextView) findViewById(R.id.joinLoanMitra);
+        txtJoinFreelancer = (TextView) findViewById(R.id.joinFreelancer);
         linkForgot = (TextView) findViewById(R.id.linkForgot);
 
-//        radioFranchise = (RadioButton) findViewById(R.id.radioFranchise);
-        radioLoanMitra = (RadioButton) findViewById(R.id.radioLoanMitra);
+        radioFranchise = (RadioButton) findViewById(R.id.radioFranchise);
+        radioFreelancer = (RadioButton) findViewById(R.id.radioFreelancer);
 
 
-        User = "LOANMITRA";
+        User = "FREELANCER";
 
 
-        txtJoinLoanMitra.setOnClickListener(new OnClickListener() {
+        txtJoinFreelancer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -157,16 +143,25 @@ public class ActivitySignup extends FragmentActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(compoundButton.isChecked()) {
-                    User = "LOANMITRA";
+                    User = "FREELANCER";
                 } else {
                     User = "FRANCHISE";
                 }
 
-              //  Toast.makeText(ActivitySignup.this,User,Toast.LENGTH_LONG).show();
+                //  Toast.makeText(ActivitySignup.this,User,Toast.LENGTH_LONG).show();
             }
         });
 
-        radioLoanMitra.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        radioFreelancer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b==true) {
+                    User = "FREELANCER";
+                }
+            }
+        });
+
+        radioFranchise.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b==true) {
@@ -174,15 +169,6 @@ public class ActivitySignup extends FragmentActivity {
                 }
             }
         });
-
-//        radioFranchise.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if(b==true) {
-//                    User = "FRANCHISE";
-//                }
-//            }
-//        });
 
 
         prgLoading.setVisibility(View.INVISIBLE);
@@ -199,23 +185,22 @@ public class ActivitySignup extends FragmentActivity {
                     Name = edtName.getText().toString();
                     Phone = edtPhone.getText().toString();
                     Password = edtPassword.getText().toString();
-                  //  Toast.makeText(ActivitySignup.this, Name, Toast.LENGTH_SHORT).show();
-                  //  Toast.makeText(ActivitySignup.this, Phone, Toast.LENGTH_SHORT).show();
-                   // Toast.makeText(ActivitySignup.this, Password, Toast.LENGTH_SHORT).show();
-                    if (Name.equalsIgnoreCase("") ||  Password.equalsIgnoreCase("") || Phone.equalsIgnoreCase("")
-                            ) {
+                    //  Toast.makeText(ActivitySignup.this, Name, Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(ActivitySignup.this, Phone, Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(ActivitySignup.this, Password, Toast.LENGTH_SHORT).show();
+                    if (Name.equalsIgnoreCase("") ||  Password.equalsIgnoreCase("") || Phone.equalsIgnoreCase("")) {
                         Toast.makeText(ActivitySignup.this, R.string.form_alert, Toast.LENGTH_SHORT).show();
                     } else {
 
-                       // if(otp.equals("")) {
-                         //   new sendDataOtp().execute();
-                       // } else {
-                         //   if(otp.equals(edtOTP.getText().toString())) {
-                                new sendData().execute();
-                           // }  else {
-                             //   Toast.makeText(ActivitySignup.this,"Invalid OTP",Toast.LENGTH_LONG).show();
-                           // }
-                    //    }
+                        // if(otp.equals("")) {
+                        //   new sendDataOtp().execute();
+                        // } else {
+                        //   if(otp.equals(edtOTP.getText().toString())) {
+                        new sendData().execute();
+                        // }  else {
+                        //   Toast.makeText(ActivitySignup.this,"Invalid OTP",Toast.LENGTH_LONG).show();
+                        // }
+                        //    }
                     }
                 } catch (Exception ex) {
                     Toast.makeText(ActivitySignup.this,ex.toString(),Toast.LENGTH_LONG).show();
@@ -232,10 +217,10 @@ public class ActivitySignup extends FragmentActivity {
                     Phone = "0000000000";
                     Password = "0000000000";
                     if ( Password.equalsIgnoreCase("") || Phone.equalsIgnoreCase("")
-                            ) {
+                    ) {
                         Toast.makeText(ActivitySignup.this, R.string.form_alert, Toast.LENGTH_SHORT).show();
                     } else {
-                      //  new sendDataGuestLogin().execute();
+                        //  new sendDataGuestLogin().execute();
                         try {
                             prefs = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
@@ -293,10 +278,11 @@ public class ActivitySignup extends FragmentActivity {
                     //  Toast.makeText(ActivitySignup.this, Phone, Toast.LENGTH_SHORT).show();
                     // Toast.makeText(ActivitySignup.this, Password, Toast.LENGTH_SHORT).show();
                     if ( Password.equalsIgnoreCase("") || Phone.equalsIgnoreCase("")
-                            ) {
+                    ) {
                         Toast.makeText(ActivitySignup.this, R.string.form_alert, Toast.LENGTH_SHORT).show();
                     } else {
-                        new sendDataLogin().execute();
+                        // new sendDataLogin().execute();
+                        login(Phone,Password);
                     }
                 } catch (Exception ex) {
                     Toast.makeText(ActivitySignup.this,ex.toString(),Toast.LENGTH_LONG).show();
@@ -308,14 +294,14 @@ public class ActivitySignup extends FragmentActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-      //  getMenuInflater().inflate(R.menu.main, menu);
+        //  getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-                return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
 
     }
 
@@ -356,11 +342,11 @@ public class ActivitySignup extends FragmentActivity {
                 //  Toast.makeText(ActivitySignup.this, Phone, Toast.LENGTH_SHORT).show();
                 // Toast.makeText(ActivitySignup.this, Password, Toast.LENGTH_SHORT).show();
                 if (Name.equalsIgnoreCase("") ||  Password.equalsIgnoreCase("") || Phone.equalsIgnoreCase("")
-                        ) {
+                ) {
                     Toast.makeText(ActivitySignup.this, R.string.form_alert, Toast.LENGTH_SHORT).show();
                 } else {
                     new sendDataLogin().execute();
-                  //  Toast.makeText(ActivitySignup.this, "Thank you for signup. You can login after approval from admin.", Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(ActivitySignup.this, "Thank you for signup. You can login after approval from admin.", Toast.LENGTH_SHORT).show();
 
                 }
             } catch (Exception ex) {
@@ -424,7 +410,7 @@ public class ActivitySignup extends FragmentActivity {
         protected Void doInBackground(Void... params) {
             // TODO Auto-generated method stub
             // send data to server and store result to variable
-           // Result = getRequestGuestLogin(Name, Phone, Password);
+            // Result = getRequestGuestLogin(Name, Phone, Password);
             Result = "";
             return null;
         }
@@ -433,8 +419,8 @@ public class ActivitySignup extends FragmentActivity {
         protected void onPostExecute(Void result) {
             // TODO Auto-generated method stub
             // if finish, dismis progress dialog and show toast message
-           // dialog.dismiss();
-          //  resultAlertGuestLogin(Result);
+            // dialog.dismiss();
+            //  resultAlertGuestLogin(Result);
 
 
         }
@@ -451,11 +437,11 @@ public class ActivitySignup extends FragmentActivity {
             editor.putString("Password",Password);
             editor.commit(); */
 
-          //  Intent i = new Intent(ActivitySignup.this, MainActivity.class);
-          //  startActivity(i);
+            //  Intent i = new Intent(ActivitySignup.this, MainActivity.class);
+            //  startActivity(i);
             Toast.makeText(ActivitySignup.this,"Your profile has been submitted and will be activated after admin confirmation",Toast.LENGTH_LONG).show();
             overridePendingTransition(R.anim.open_next, R.anim.close_next);
-           // finish();
+            // finish();
         }else if(HasilProses.trim().equalsIgnoreCase("Failed")){
             Toast.makeText(ActivitySignup.this, R.string.failed_alert, Toast.LENGTH_SHORT).show();
         }else{
@@ -492,33 +478,33 @@ public class ActivitySignup extends FragmentActivity {
         // Toast.makeText(ActivityLogin.this, HasilProses, Toast.LENGTH_SHORT).show();
 
 
-                try {
-                    prefs = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        try {
+            prefs = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("Name", "Guest");
-                    editor.putString("Phone", Phone);
-                    editor.putString("Password", Password);
-                    editor.putString("user_id", "-9");
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("Name", "Guest");
+            editor.putString("Phone", Phone);
+            editor.putString("Password", Password);
+            editor.putString("user_id", "-9");
 
 //                Toast.makeText(ActivitySignup.this,id,Toast.LENGTH_LONG).show();
 
-                    editor.commit();
-                } catch (Exception ex) {
-                    Toast.makeText(ActivitySignup.this,ex.toString(),Toast.LENGTH_LONG).show();
-                }
+            editor.commit();
+        } catch (Exception ex) {
+            Toast.makeText(ActivitySignup.this,ex.toString(),Toast.LENGTH_LONG).show();
+        }
 
-            Intent myintent=new Intent(ActivitySignup.this, MainActivity.class);
-            startActivity(myintent);
-            overridePendingTransition (R.anim.open_next, R.anim.close_next);
-          //  finish();
+        Intent myintent=new Intent(ActivitySignup.this, MainActivity.class);
+        startActivity(myintent);
+        overridePendingTransition (R.anim.open_next, R.anim.close_next);
+        //  finish();
 
 
     }
 
     // method to show toast message
     public void resultAlertLogin(String HasilProses){
-       //  Toast.makeText(ActivitySignup.this, HasilProses, Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(ActivitySignup.this, HasilProses, Toast.LENGTH_SHORT).show();
 
         if(HasilProses.trim().equalsIgnoreCase("")){
             Toast.makeText(ActivitySignup.this, "Invalid Mobile or Password or ID not activated.", Toast.LENGTH_SHORT).show();
@@ -539,7 +525,7 @@ public class ActivitySignup extends FragmentActivity {
                 String id = jObj.getString("id");
                 String client_name = jObj.getString("name");
 
-               // prefs = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                // prefs = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("Name", client_name);
@@ -666,7 +652,7 @@ public class ActivitySignup extends FragmentActivity {
     public void onBackPressed() {
         // TODO Auto-generated method stub
         super.onBackPressed();
-    //    dbhelper.close();
+        //    dbhelper.close();
         finish();
         overridePendingTransition(R.anim.open_main, R.anim.close_next);
     }
@@ -677,4 +663,73 @@ public class ActivitySignup extends FragmentActivity {
         // Ignore orientation change to keep activity from restarting
         super.onConfigurationChanged(newConfig);
     }
+
+    public void login(String phone, String password){
+        loading = new ProgressDialog(mContext);
+        loading.setCancelable(true);
+        loading.setMessage("Loading...");
+        loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        loading.show();
+        AndroidNetworking.post("http://check.loanchacha.com/api/login-partner")
+                .addQueryParameter(getParameter(phone, password))
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        loading.dismiss();
+
+                        if(response!=null){
+                            try {
+                                if(response.getInt("status")==200){
+                                    try {
+                                        JSONObject jobj = response.getJSONObject("data");
+                                        String id = jobj.getString("id");
+                                        String client_name = jobj.getString("name");
+
+                                        // prefs = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+                                        SharedPreferences.Editor editor = prefs.edit();
+                                        editor.putString("Name", client_name);
+                                        editor.putString("Phone", Phone);
+                                        editor.putString("Password", Password);
+                                        editor.putString("user_type",Constant.USER_TYPE);
+                                        editor.putString("user_id", id);
+                                        editor.commit();
+
+                                        Intent myintent=new Intent(ActivitySignup.this, MainActivity.class);
+                                        startActivity(myintent);
+                                        overridePendingTransition (R.anim.open_next, R.anim.close_next);
+                                        finish();
+                                    } catch (JSONException e) {
+                                        Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        loading.dismiss();
+                    }
+                });
+
+    }
+    public Map<String, String> getParameter(String phone, String password) {
+        Map<String, String> map = new HashMap<>();
+        map.put("phone",phone);
+        map.put("password", password);
+        map.put("accesskey", Constant.ACCESSKEY);
+        map.put("user", Constant.USER_TYPE);
+        return map;
+    }
+
+
 }
